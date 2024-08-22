@@ -1,0 +1,52 @@
+logging:
+  level:
+    '[com.lukmanhidayah.catalog]': DEBUG
+    
+
+spring:
+  profiles:
+    active: development
+app:
+  welcome-text: This is the Book Catalog v2 application
+  timezone: Asia/Jakarta
+  currency: IDR
+cloud:
+  api-key: ${CLOUD_KEY}
+server:
+  port: 8000
+
+---
+spring:
+  config:
+    activate:
+      on-profile: development
+server:
+  port: 8081
+app:
+  welcome-text: This is the Book Catalog v2 application (Development)
+  timezone: Asia/Jakarta
+  currency: IDR
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+server:
+  port: 8082
+app:
+  welcome-text: This is the Book Catalog v2 application (Test)
+  timezone: Asia/Jakarta
+  currency: USD
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+server:
+  port: 80
+app:
+  welcome-text: This is the Book Catalog v2 application (Production)
+  timezone: Asia/Jakarta
+  currency: USD
