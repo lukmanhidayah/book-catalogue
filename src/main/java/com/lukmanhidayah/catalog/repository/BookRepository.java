@@ -3,6 +3,7 @@ package com.lukmanhidayah.catalog.repository;
 import com.lukmanhidayah.catalog.domain.Book;
 
 import java.util.List;
+import java.lang.Long;
 
 public interface BookRepository {
 
@@ -11,5 +12,8 @@ public interface BookRepository {
 
   // Add method findAllBook
   public List<Book> findAllBook();
+
+  // Add method save
+  public void save(Book book);
 
 }

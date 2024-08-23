@@ -1,6 +1,6 @@
 <!-- html list with thymleaf -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,5 +8,21 @@
   </head>
   <body>
     <h1>List of book</h1>
+    <table>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>Author Name</th>
+        <th>Description</th>
+      </tr>
+      <tbody>
+        <tr th:each="book: ${books}">
+          <td th:text="${book.bookId}">bookId</td>
+          <td th:text="${book.bookTitle}">bookTitle</td>
+          <td th:text="${book.authorName}">authorName</td>
+          <td th:text="${book.bookDescription}">Description</td>
+        </tr>
+      </tbody>
+    </table>
   </body>
 </html>

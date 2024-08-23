@@ -1,0 +1,40 @@
+<!-- html add book with thymleaf -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Add</title>
+  </head>
+  <body>
+    <h1>Add Book</h1>
+    <form method="post" th:action="@{/book/new}" th:object="${bookCreateDto}">
+      <!-- with table -->
+      <table>
+        <tr>
+          <td>Title</td>
+          <td><input type="text" name="title" th:field="*{bookTitle}" /></td>
+        </tr>
+        <tr>
+          <td>Author Name</td>
+          <td><input type="text" name="author" th:field="*{authorName}" /></td>
+        </tr>
+        <tr>
+          <td>Description</td>
+          <td>
+            <textarea
+              name="description"
+              rows="5"
+              cols="20"
+              th:field="*{description}"
+            ></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><input type="submit" value="Add" /></td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>

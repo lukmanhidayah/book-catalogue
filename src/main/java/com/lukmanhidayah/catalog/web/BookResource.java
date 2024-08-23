@@ -1,5 +1,7 @@
 package com.lukmanhidayah.catalog.web;
 
+import java.lang.Long;
+
 import org.springframework.util.StopWatch;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

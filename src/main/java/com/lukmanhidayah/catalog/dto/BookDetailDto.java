@@ -3,6 +3,7 @@ package com.lukmanhidayah.catalog.dto;
 import java.io.Serializable;
 
 import lombok.Data;
+import java.lang.Long;
 
 @Data
 public class BookDetailDto implements Serializable {
