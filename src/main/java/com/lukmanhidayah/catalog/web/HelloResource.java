@@ -1,8 +1,10 @@
 package com.lukmanhidayah.catalog.web;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lukmanhidayah.catalog.dto.HelloMessageResponseDto;
 import com.lukmanhidayah.catalog.service.GreetingService;
 
 import lombok.AllArgsConstructor;
@@ -17,13 +19,10 @@ public class HelloResource {
   private GreetingService greetingService;
 
   @GetMapping("hello")
-  public String helloWord() {
-    log.trace("This is log trace");
-    log.debug("This is log debug");
-    log.info("This is log info");
-    log.warn("This is log warn");
-    log.error("This is log error");
-    return greetingService.sayGreeting();
+  public ResponseEntity<HelloMessageResponseDto> helloWord() {
+    HelloMessageResponseDto response = new HelloMessageResponseDto();
+    response.setMessage(greetingService.sayGreeting());
+    return ResponseEntity.ok().body(response);
   }
 
 }

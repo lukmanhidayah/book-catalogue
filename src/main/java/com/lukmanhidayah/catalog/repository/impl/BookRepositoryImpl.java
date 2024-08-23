@@ -7,11 +7,13 @@ import com.lukmanhidayah.catalog.domain.Book;
 import com.lukmanhidayah.catalog.repository.BookRepository;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.ArrayList;
 
 @Data
+@Slf4j
 public class BookRepositoryImpl implements BookRepository {
 
   // Add Map<Long, Book> bookMap
@@ -33,9 +35,18 @@ public class BookRepositoryImpl implements BookRepository {
   // save book
   @Override
   public void save(Book book) {
-    int size = bookMap.size();
-    book.setId((long) (size + 1));
+
+    if (book.getId() == null) {
+      int size = bookMap.size();
+      book.setId((long) (size + 1));
+    }
+
     bookMap.put(book.getId(), book);
+  }
+
+  @Override
+  public void delete(Long bookId) {
+    bookMap.remove(bookId);
   }
 
 }

@@ -16,4 +16,7 @@ public interface BookRepository {
   // Add method save
   public void save(Book book);
 
+  // Delete method delete
+  public void delete(Long bookId);
+
 }

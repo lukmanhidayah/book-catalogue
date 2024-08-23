@@ -9,6 +9,7 @@ import com.lukmanhidayah.catalog.domain.Author;
 import com.lukmanhidayah.catalog.domain.Book;
 import com.lukmanhidayah.catalog.dto.BookCreateDto;
 import com.lukmanhidayah.catalog.dto.BookDetailDto;
+import com.lukmanhidayah.catalog.dto.BookUpdateDto;
 import com.lukmanhidayah.catalog.repository.BookRepository;
 import com.lukmanhidayah.catalog.service.BookService;
 
@@ -58,6 +59,35 @@ public class BookServiceImpl implements BookService {
 		book.setDescription(bookCreateDto.getDescription());
 
 		bookRepository.save(book);
+	}
+
+	@Override
+	public void updateBook(Long bookId,  BookUpdateDto bookUpdateDto) {
+		
+		// get book
+		Book book = bookRepository.findBookById(bookId);
+
+		log.info(book.toString(), bookUpdateDto.toString());
+		// update book
+		book.setTitle(bookUpdateDto.getBookTitle());
+		book.setDescription(bookUpdateDto.getDescription());
+
+		// save book
+		bookRepository.save(book);
+	}
+
+	@Override
+	public void deleteBook(Long bookId) {
+		// get book
+		Book book = bookRepository.findBookById(bookId);
+		
+		// handle if book not found
+		if (book == null) {
+			throw new RuntimeException("Book not found");
+		}
+
+		// delete book
+		bookRepository.delete(book.getId());
 	}
 
 }

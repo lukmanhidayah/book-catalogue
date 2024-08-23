@@ -5,7 +5,11 @@ import java.io.Serializable;
 import lombok.Data;
 import java.lang.Long;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+
 @Data
+@JsonNaming(PropertyNamingStrategies.LowerCamelCaseStrategy.class)
 public class BookDetailDto implements Serializable {
 
   /**
