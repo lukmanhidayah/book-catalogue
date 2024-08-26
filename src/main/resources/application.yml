@@ -1,11 +1,42 @@
 logging:
   level:
-    '[com.lukmanhidayah.catalog]': DEBUG
-    
+    "[com.lukmanhidayah.catalog]": DEBUG
 
 spring:
   profiles:
     active: development
+  datasource:
+    #hikari adalah connection pool yang digunakan oleh spring boot
+    hikari:
+      connection-timeout: 600000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+      maximum-pool-size: 10
+    #url adalah konfigurasi untuk menghubungkan ke database
+    #1. posgres: jdbc:postgresql://localhost:5432/book_catalog
+    #2. mysql: jdbc:mysql://localhost:3306/book_catalog
+    #3. sqlserver: jdbc:sqlserver://localhost:1433;databaseName=book_catalog
+    #4. oracle: jdbc:oracle:thin:@localhost:1521:book_catalog
+    #5. mongodb: mongodb://localhost:27017/book_catalog
+    url: jdbc:postgresql://localhost:5432/book_catalog
+    username: ${DB_USER}
+    password: ${DB_PASS}
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      #ddl-auto adalah konfigurasi untuk membuat table
+      #1. update: jika table tidak ada, maka akan dibuat
+      #2. create: jika table tidak ada, maka akan dibuat, jika table sudah ada, maka akan dihapus dan dibuat ulang
+      #3. create-drop: jika table tidak ada, maka akan dibuat, jika table sudah ada, maka akan dihapus ketika aplikasi dihentikan
+      #4. validate: jika table tidak ada, maka akan error
+      #5. none: tidak melakukan apa-apa
+      ddl-auto: update
+
+    #show-sql adalah konfigurasi untuk menampilkan logging query yang dijalankan oleh hibernate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 app:
   welcome-text: This is the Book Catalog v2 application
   timezone: Asia/Jakarta
