@@ -19,8 +19,10 @@ spring:
     #4. oracle: jdbc:oracle:thin:@localhost:1521:book_catalog
     #5. mongodb: mongodb://localhost:27017/book_catalog
     url: jdbc:postgresql://localhost:5432/book_catalog
-    username: ${DB_USER}
-    password: ${DB_PASS}
+    # username using env
+    username: ${DB_USERNAME}
+    # password using env
+    password: ${DB_PASSWORD}
   jpa:
     database: POSTGRESQL
     hibernate:
@@ -37,6 +39,9 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        jdbc:
+          batch_size: 100
+        order_inserts: true
 app:
   welcome-text: This is the Book Catalog v2 application
   timezone: Asia/Jakarta
