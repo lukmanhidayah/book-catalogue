@@ -111,6 +111,12 @@
 			<artifactId>datasource-proxy</artifactId>
 			<version>1.4.1</version>
 		</dependency>
+
+		<!-- commons lang 3 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
 	</dependencies>
 
 
