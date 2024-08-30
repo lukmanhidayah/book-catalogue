@@ -1,4 +1,4 @@
-package com.lukmanhidayah.catalog.repository.impl;
+package com.lukmanhidayah.catalog.service.impl;
 
 import java.time.LocalDate;
 import java.util.List;

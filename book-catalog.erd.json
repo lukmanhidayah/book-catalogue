@@ -4,14 +4,14 @@
   "settings": {
     "width": 2000,
     "height": 2000,
-    "scrollTop": 0,
-    "scrollLeft": -26.4,
+    "scrollTop": -264,
+    "scrollLeft": -84,
     "zoomLevel": 1,
     "show": 431,
     "database": 4,
     "databaseName": "book_catalog",
-    "canvasType": "ERD",
-    "language": 64,
+    "canvasType": "@dineug/erd-editor/builtin-generator-code",
+    "language": 4,
     "tableNameCase": 4,
     "columnNameCase": 2,
     "bracketType": 1,
@@ -449,7 +449,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1724838279862,
+          "updateAt": 1725001269121,
           "createAt": 1724838123221
         }
       },
@@ -749,7 +749,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1724915453125,
+          "updateAt": 1725001269121,
           "createAt": 1724915448721
         }
       },
@@ -769,7 +769,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1724915517185,
+          "updateAt": 1725001269121,
           "createAt": 1724915510326
         }
       },
@@ -809,7 +809,7 @@
           "widthDefault": 60
         },
         "meta": {
-          "updateAt": 1724915787181,
+          "updateAt": 1725001269121,
           "createAt": 1724915767280
         }
       },
@@ -1254,7 +1254,7 @@
       -1,
       {
         "name": 1724838124774,
-        "dataType": 1724838132268,
+        "dataType": 1725001269120,
         "options(primaryKey)": 1724838279861
       }
     ],
@@ -1468,7 +1468,7 @@
       {
         "options(notNull)": 1724915448715,
         "name": 1724915453124,
-        "dataType": 1724915448715,
+        "dataType": 1725001269120,
         "default": 1724915448715,
         "comment": 1724915448715
       }
@@ -1486,7 +1486,7 @@
       {
         "options(notNull)": 1724915510324,
         "name": 1724915517184,
-        "dataType": 1724915510324,
+        "dataType": 1725001269120,
         "default": 1724915510324,
         "comment": 1724915510324
       }
@@ -1522,7 +1522,7 @@
       {
         "options(notNull)": 1724915767277,
         "name": 1724915787180,
-        "dataType": 1724915767277,
+        "dataType": 1725001269120,
         "default": 1724915767277,
         "comment": 1724915767277
       }

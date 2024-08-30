@@ -26,10 +26,12 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public BookDetailDto findBookDetailById(Long bookId) {
 		log.info("findBookDetailById with bookId: {}", bookId);
-		Book book = bookRepository.findBookById(bookId);
+		Book book = bookRepository.findById(bookId)
+				.orElseThrow(() -> new RuntimeException("Book not found with id: " + bookId));
+
 		BookDetailDto dto = new BookDetailDto();
 		dto.setBookId(book.getId());
-		dto.setAuthorName(book.getAuthor().getName());
+		// dto.setAuthorName(book.getAuthor().getName());
 		dto.setBookTitle(book.getTitle());
 		dto.setBookDescription(book.getDescription());
 		return dto;
@@ -37,10 +39,10 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<BookDetailDto> findAllBookDetail() {
-		List<Book> books = bookRepository.findAllBook();
+		List<Book> books = bookRepository.findAll();
 		return books.stream().map((b) -> {
 			BookDetailDto dto = new BookDetailDto();
-			dto.setAuthorName(b.getAuthor().getName());
+			// dto.setAuthorName(b.getAuthor().getName());
 			dto.setBookDescription(b.getDescription());
 			dto.setBookId(b.getId());
 			dto.setBookTitle(b.getTitle());
@@ -54,7 +56,7 @@ public class BookServiceImpl implements BookService {
 		author.setName(bookCreateDto.getAuthorName());
 
 		Book book = new Book();
-		book.setAuthor(author);
+		// book.setAuthor(author);
 		book.setTitle(bookCreateDto.getBookTitle());
 		book.setDescription(bookCreateDto.getDescription());
 
@@ -62,10 +64,11 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void updateBook(Long bookId,  BookUpdateDto bookUpdateDto) {
-		
+	public void updateBook(Long bookId, BookUpdateDto bookUpdateDto) {
+
 		// get book
-		Book book = bookRepository.findBookById(bookId);
+		Book book = bookRepository.findById(bookId)
+				.orElseThrow(() -> new RuntimeException("Book not found with id: " + bookId));
 
 		log.info(book.toString(), bookUpdateDto.toString());
 		// update book
@@ -78,16 +81,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void deleteBook(Long bookId) {
-		// get book
-		Book book = bookRepository.findBookById(bookId);
-		
-		// handle if book not found
-		if (book == null) {
-			throw new RuntimeException("Book not found");
-		}
-
-		// delete book
-		bookRepository.delete(book.getId());
+		bookRepository.deleteById(bookId);
 	}
 
 }
