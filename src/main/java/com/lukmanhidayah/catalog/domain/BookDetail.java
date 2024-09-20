@@ -16,10 +16,7 @@ import lombok.Data;
 @Table(name = "book_detail")
 public class BookDetail implements Serializable {
 
-  /**
-   * random generated serial version UID
-   */
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 387864990L;
 
   @Id
   @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)

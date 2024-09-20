@@ -3,7 +3,6 @@ package com.lukmanhidayah.catalog.domain;
 import lombok.Data;
 
 import java.util.List;
-import java.util.UUID;
 
 import org.hibernate.annotations.DynamicUpdate;
 
