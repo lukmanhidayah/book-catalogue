@@ -13,6 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Long> {
 
   // Add method findBookById
   public Optional<Book> findById(Long id);
+  public Optional<Book> findBySecureId(String secureId);
 
   // // Add method findAllBook
   // public List<Book> findAllBook();

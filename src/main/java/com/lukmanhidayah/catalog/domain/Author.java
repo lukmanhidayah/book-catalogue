@@ -20,18 +20,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@SuppressWarnings("deprecation")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@DynamicUpdate
+// @DynamicUpdate
 @Data
 @SQLDelete(sql = "UPDATE author SET deleted=true WHERE id=?")
-// Where(clause = "deleted=false") adalah
-// sebuah anotasi yang digunakan untuk menentukan kondisi
-// dimana data yang diambil dari database adalah data yang
-// memiliki kondisi deleted=false.
-
 @Table(name = "author", indexes = {
 		@Index(name = "idx_secure_id", columnList = "secure_id")
 })

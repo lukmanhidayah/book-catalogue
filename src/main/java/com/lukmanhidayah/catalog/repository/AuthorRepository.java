@@ -11,12 +11,28 @@ public interface AuthorRepository extends JpaRepository<Author, Long> {
 
   /**
    * Find author by id
+   * 
    * @param id
    */
   public Optional<Author> findById(Long id);
 
   /**
+   * Find author by names
+   * 
+   * @param name
+   */
+  public List<Author> findBySecureIdIn(List<String> secureIdList);
+
+  /**
+   * Find by secure id
+   * 
+   * @param secureId
+   */
+  public Optional<Author> findBySecureId(String secureId);
+
+  /**
    * Find author by id and soft delete
+   * 
    * @param id
    */
   public Optional<Author> findByIdAndDeletedFalse(Long id);

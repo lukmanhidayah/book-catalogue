@@ -1,7 +1,7 @@
 package com.lukmanhidayah.catalog.service;
 
-import com.lukmanhidayah.catalog.dto.BookCreateDto;
-import com.lukmanhidayah.catalog.dto.BookDetailDto;
+import com.lukmanhidayah.catalog.dto.BookCreateRequestDto;
+import com.lukmanhidayah.catalog.dto.BookDetailResponseDto;
 import com.lukmanhidayah.catalog.dto.BookUpdateDto;
 
 import java.util.List;
@@ -14,19 +14,19 @@ public interface BookService {
 	 * @param bookId
 	 * @return BookDetailDto
 	*/
-	public BookDetailDto findBookDetailById(Long bookId);
+	public BookDetailResponseDto findBookDetailById(String secureId);
 
 	/**
 	 * Find all book detail
 	 * @return List<BookDetailDto>
 	*/
-	public List<BookDetailDto> findAllBookDetail();
+	public List<BookDetailResponseDto> findAllBookDetail();
 
 	/**
 	 * Create new book
 	 * @param bookCreateDto
 	*/
-	public void createNewBook(BookCreateDto bookCreateDto);
+	public void createNewBook(BookCreateRequestDto bookCreateDto);
 
 	/**
 	 * Update book

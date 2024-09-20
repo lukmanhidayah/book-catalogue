@@ -20,12 +20,10 @@ import com.lukmanhidayah.catalog.service.AuthorService;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/author")
+@RequestMapping("/v1/author")
 public class AuthorResource {
 
   /*
@@ -38,7 +36,7 @@ public class AuthorResource {
    * author berdasarkan id yang diberikan.
    */
   @GetMapping("/{id}/detail")
-  public ResponseEntity<AuthorResponseDto> findAuthorById(@PathVariable Long id) {
+  public ResponseEntity<AuthorResponseDto> findAuthorById(@PathVariable String id) {
     return ResponseEntity.ok().body(authorService.findAuthorById(id));
   }
 
@@ -49,7 +47,7 @@ public class AuthorResource {
   }
 
   @PutMapping("{authorId}")
-  public ResponseEntity<Void> updateAuthor(@PathVariable("authorId") Long id,
+  public ResponseEntity<Void> updateAuthor(@PathVariable("authorId") String id,
       @RequestBody AuthorUpdateRequestDto authorUpdateRequestDto) {
 
     authorService.updateAuthor(id, authorUpdateRequestDto);
@@ -57,8 +55,8 @@ public class AuthorResource {
   }
 
   @DeleteMapping("{authorId}")
-  public ResponseEntity<Void> deleteAuthor(@PathVariable("authorId") Long id) {
-    authorService.deleteAuthor(id);
+  public ResponseEntity<Void> deleteAuthor(@PathVariable("authorId") String authorId) {
+    authorService.deleteAuthor(authorId);
     return ResponseEntity.ok().build();
   }
 

@@ -11,23 +11,22 @@ import com.lukmanhidayah.catalog.dto.author.AuthorCreateDto;
 import com.lukmanhidayah.catalog.dto.author.AuthorResponseDto;
 import com.lukmanhidayah.catalog.dto.author.AuthorUpdateRequestDto;
 import com.lukmanhidayah.catalog.exception.BadRequestException;
+import com.lukmanhidayah.catalog.exception.ResourceNotFoundException;
 import com.lukmanhidayah.catalog.repository.AuthorRepository;
 import com.lukmanhidayah.catalog.service.AuthorService;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class AuthorServiceImpl implements AuthorService {
 
   private final AuthorRepository authorRepository;
 
   @Override
-  public AuthorResponseDto findAuthorById(Long id) {
-    Author author = authorRepository.findById(id)
-        .orElseThrow(() -> new BadRequestException("Invalid author id"));
+  public AuthorResponseDto findAuthorById(String id) {
+    Author author = authorRepository.findBySecureId(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Invalid author id"));
 
     AuthorResponseDto authorResponseDto = new AuthorResponseDto();
     authorResponseDto.setAuthorName(author.getName());
@@ -40,9 +39,9 @@ public class AuthorServiceImpl implements AuthorService {
   public void createAuthor(List<AuthorCreateDto> authorCreateDto) {
     List<Author> authors = authorCreateDto.stream().map((dto) -> {
       Author author = new Author();
-      log.info("AuthorCreateDto: {}", dto);
       author.setName(dto.getAuthorName());
       author.setBirthDate(LocalDate.ofEpochDay(dto.getBirthDate()));
+      author.setDeleted(false);
       return author;
     }).collect(Collectors.toList());
 
@@ -50,11 +49,11 @@ public class AuthorServiceImpl implements AuthorService {
   }
 
   @Override
-  public void updateAuthor(Long id, AuthorUpdateRequestDto authorUpdateRequestDto) {
+  public void updateAuthor(String authorId, AuthorUpdateRequestDto authorUpdateRequestDto) {
     // Find author by id
     // If author id not found then throw BadRequestException
-    Author author = authorRepository.findById(id)
-        .orElseThrow(() -> new BadRequestException("Invalid author id"));
+    Author author = authorRepository.findBySecureId(authorId)
+        .orElseThrow(() -> new ResourceNotFoundException("Invalid author id"));
 
     // If author name is null then use the old author name
     String authorName = authorUpdateRequestDto.getAuthorName() == null ? author.getName()
@@ -73,20 +72,46 @@ public class AuthorServiceImpl implements AuthorService {
   }
 
   @Override
-  public void deleteAuthor(Long id) {
+  public void deleteAuthor(String id) {
     // Delete author
-    authorRepository.deleteById(id);
+    // authorRepository.deleteById(id);
 
     // Find author by id
     // If author id not found then throw BadRequestException
     // Author author = authorRepository.findById(id)
-    //     .orElseThrow(() -> new BadRequestException("Invalid author id"));
+    // .orElseThrow(() -> new BadRequestException("Invalid author id"));
+
+    Author author = authorRepository.findBySecureId(id)
+        .orElseThrow(() -> new BadRequestException("Invalid author id"));
+
+    authorRepository.delete(author);
 
     // Set deleted to true
     // author.setDeleted(true);
 
     // Save author
     // authorRepository.save(author);
+  }
+
+  @Override
+  public List<Author> findAuthors(List<String> authorIdsList) {
+    List<Author> authors = authorRepository.findBySecureIdIn(authorIdsList);
+
+    if (authors.isEmpty()) {
+      throw new BadRequestException("Author cannot be found");
+    }
+
+    return authors;
+  }
+
+  @Override
+  public List<AuthorResponseDto> constructDTO(List<Author> authors) {
+    return authors.stream().map((author) -> {
+      AuthorResponseDto dto = new AuthorResponseDto();
+      dto.setAuthorName(author.getName());
+      dto.setBirthDate(author.getBirthDate().toEpochDay());
+      return dto;
+    }).collect(Collectors.toList());
   }
 
 }

@@ -13,6 +13,7 @@ import com.lukmanhidayah.catalog.domain.Publisher;
 import com.lukmanhidayah.catalog.dto.ResultPageResponseDto;
 import com.lukmanhidayah.catalog.dto.publisher.PublisherCreateRequestDto;
 import com.lukmanhidayah.catalog.dto.publisher.PublisherListResponseDto;
+import com.lukmanhidayah.catalog.dto.publisher.PublisherResponseDto;
 import com.lukmanhidayah.catalog.dto.publisher.PublisherUpdateRequestDto;
 import com.lukmanhidayah.catalog.exception.BadRequestException;
 import com.lukmanhidayah.catalog.repository.PublisherRepository;
@@ -99,6 +100,20 @@ public class PublisherServiceImpl implements PublisherService {
 
     return PaginationUtil.createResultPageDto(publisherListResponseDtos, pageResult.getTotalElements(),
         pageResult.getTotalPages());
+  }
+
+  @Override
+  public Publisher findPublisher(String secureId) {
+    return publisherRepository.findBySecureId(secureId)
+        .orElseThrow(() -> new BadRequestException("Publisher not found"));
+  }
+
+  @Override
+  public PublisherResponseDto constructDTO(Publisher publishers) {
+    PublisherResponseDto dto = new PublisherResponseDto();
+    dto.setPublisherName(publishers.getName());
+    dto.setCompanyName(publishers.getCompanyName());
+    return dto;
   }
 
 }

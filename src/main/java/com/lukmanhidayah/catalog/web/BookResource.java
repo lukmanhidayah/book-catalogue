@@ -15,40 +15,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lukmanhidayah.catalog.dto.BookCreateDto;
-import com.lukmanhidayah.catalog.dto.BookDetailDto;
+import com.lukmanhidayah.catalog.dto.BookCreateRequestDto;
+import com.lukmanhidayah.catalog.dto.BookDetailResponseDto;
 import com.lukmanhidayah.catalog.dto.BookUpdateDto;
 import com.lukmanhidayah.catalog.service.BookService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping("/book")
+@RequestMapping("/v1/book")
 public class BookResource {
 
   private final BookService bookService;
 
   @GetMapping("/{bookId}")
-  public BookDetailDto findBookDetail(@PathVariable("bookId") Long id) {
+  public ResponseEntity<BookDetailResponseDto> findBookDetail(@PathVariable("bookId") String id) {
     StopWatch stopWatch = new StopWatch();
     stopWatch.start();
     log.info("start findBookDetail with bookId: {}", id);
-    BookDetailDto bookDetailDto = bookService.findBookDetailById(id);
+    BookDetailResponseDto bookDetailDto = bookService.findBookDetailById(id);
     log.info("end findBookDetail with bookId: {}", id, " in: ", stopWatch.getTotalTimeMillis());
-    return bookDetailDto;
+    return ResponseEntity.ok().body(bookDetailDto);
   }
 
   @GetMapping
-  public ResponseEntity<List<BookDetailDto>> findAllBookDetail() {
-    List<BookDetailDto> bookDetailDtos = bookService.findAllBookDetail();
+  public ResponseEntity<List<BookDetailResponseDto>> findAllBookDetail() {
+    List<BookDetailResponseDto> bookDetailDtos = bookService.findAllBookDetail();
     return ResponseEntity.ok().body(bookDetailDtos);
   }
 
   @PostMapping
-  public ResponseEntity<Void> createNewBook(BookCreateDto bookCreateDto) {
+  public ResponseEntity<Void> createNewBook(@RequestBody @Valid BookCreateRequestDto bookCreateDto) {
     bookService.createNewBook(bookCreateDto);
     return ResponseEntity.created(URI.create("/book")).build();
   }

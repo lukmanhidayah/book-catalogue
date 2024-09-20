@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.lukmanhidayah.catalog.dto.BookCreateDto;
-import com.lukmanhidayah.catalog.dto.BookDetailDto;
+import com.lukmanhidayah.catalog.dto.BookCreateRequestDto;
+import com.lukmanhidayah.catalog.dto.BookDetailResponseDto;
 import com.lukmanhidayah.catalog.service.BookService;
 
 import jakarta.validation.Valid;
@@ -27,20 +27,20 @@ public class BookController {
 
   @GetMapping("/list")
   public String findBookList(Model model) {
-    List<BookDetailDto> books = bookService.findAllBookDetail();
+    List<BookDetailResponseDto> books = bookService.findAllBookDetail();
     model.addAttribute("books", books);
     return "book/list";
   }
 
   @GetMapping("/new")
   public String loadBookForm(Model model) {
-    BookCreateDto bookCreateDto = new BookCreateDto();
+    BookCreateRequestDto bookCreateDto = new BookCreateRequestDto();
     model.addAttribute("bookCreateDto", bookCreateDto);
     return "book/book-new";
   }
 
   @PostMapping("/new")
-  public String addNewBook(@ModelAttribute("bookCreateDto") @Valid BookCreateDto bookCreateDto,
+  public String addNewBook(@ModelAttribute("bookCreateDto") @Valid BookCreateRequestDto bookCreateDto,
       BindingResult bindingResult,
       Errors errors,
       Model model) {
